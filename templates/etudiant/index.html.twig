@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Liste des étudiants
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('assets/styles/style.css')}}">
+    {%  endblock  %}
+
+{% block body %}
+
+        <div class="container">
+            <table class="table" >
+                <a href="{{path("etudiant.edit")}}">Ajouter une personne</a>
+                <thead>
+                <tr>
+                    <th >
+                        <a href="#" >Nom</a>
+                    </th>
+                    <th>
+                        <a href="#" >Prenom</a>
+                    </th>
+                    <th>
+                        <a href="#" >Section</a>
+                    </th>
+                    <th>
+                        <a href="#" >Action</a>
+                    </th>
+                </tr>
+                </thead>
+
+
+                {% for etudiant in etudiants %}
+                    <tr class="table-{% if loop.index is odd %}danger{% else %}warning{% endif %}">
+                        <td>{{etudiant.nom}}</td>
+                        <td>{{etudiant.prenom}}</td>
+                        <td>{{etudiant.section is same as null ?  "Non encore affecté" : etudiant.section.designation}}</td>
+                        <td>
+                            <a href="{{path("etudiant.edit", {id: etudiant.id })}}">Update</a>
+
+                            <a href="{{path("etudiant.delete", {id: etudiant.id })}}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+{% endblock %}
